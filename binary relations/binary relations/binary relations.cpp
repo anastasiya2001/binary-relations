@@ -2,46 +2,58 @@
 
 using namespace std;
 
-int symmetry1 = 0, reflexivity1 = 0, transitivity1 = 0;
+int symmetry1 = 0, reflexivity1 = 0, transitivity1 = 0, antisymmetry1 = 0;
 
 void symmetry(int** a, int n)
 {
-	int antisymmetry1 = 0;
+	int not_symmetry1 = 0;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
-		{ 
+		{
 			if (a[i][j] != a[j][i])
-			{
-				antisymmetry1++; 
-			}
-			else symmetry1++; 
+				not_symmetry1++;
 
 		}
-		
 	}
-	if (symmetry1 == 1) cout << "отношение симметрично" << endl;
-	else if (antisymmetry1 == 1) cout << "отношение антисимметрично" << endl;
+	if (not_symmetry1 == 0 ) cout << "отношение симметрично" << endl;
+	symmetry1++;
+}
+
+void antisymmetry(int** a, int n)
+{
+	int not_antisymmetry1 = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (a[i][j] == a[j][i])
+				if (i != j)
+					not_antisymmetry1++;
+
+		}
+	}
+	if (not_antisymmetry1 == 0) {
+		cout << "отношение антисимметрично" << endl;
+		antisymmetry1++;
+	}
 }
 
 void reflexivity(int** a, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < n; j++)
-		{
-			if (a[i][i] == 1)
-				reflexivity1++;
-		}
-		if (reflexivity1 >= 1) {
-			cout << "отношение рефлексивно" << endl;
-		}
-		else cout << "отношение антирефлексивно" << endl;
+		if (a[i][i] == 1)
+			reflexivity1++;
+	}
+	if (reflexivity1 == n) {
+		cout << "отношение рефлексивно" << endl;
 	}
 }
 
 void transitivity(int** a, int n)
 {
+	int chek = 0;
 	int not_transitivity1 = 0;
 	for (int i = 0; i < n; i++)
 	{
@@ -57,18 +69,20 @@ void transitivity(int** a, int n)
 					}
 					else
 					{
-						transitivity1++;
+						chek++;
 					}
 				}
-				
+
 			}
 
 
 		}
 
 	}
-	if (not_transitivity1 == 1) cout << "отношение не транзитивно" << endl;
-	else if (transitivity1 == 1) cout << "отношение транзитивно" << endl;
+	if (chek == 1) {
+		cout << "отношение транзитивно" << endl;
+		transitivity1++;
+	}
 }
 
 void pr_symmetry(int** a, int n)
@@ -153,7 +167,7 @@ int main()
 {
 	setlocale(LC_ALL, "RUS");
 	int n;
-	cout << "n="; 
+	cout << "n=";
 	cin >> n;
 	int** a;
 	a = new int* [n];
@@ -169,6 +183,7 @@ int main()
 	symmetry(a, n);
 	reflexivity(a, n);
 	transitivity(a, n);
+	antisymmetry(a, n);
 
 	if (symmetry1 == 1 && reflexivity1 == 1 && transitivity1 == 1)
 		cout << "Отношение является отношением эквивалентности" << endl;

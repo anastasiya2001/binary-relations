@@ -27,13 +27,12 @@ void antisymmetry(int** a, int n)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			if (a[i][j] == a[j][i])
-				if (i != j)
+			if (a[i][j] == -a[j][i])
 					not_antisymmetry1++;
 
 		}
 	}
-	if (not_antisymmetry1 == 0) {
+	if (not_antisymmetry1 > 0) {
 		cout << "отношение антисимметрично" << endl;
 		antisymmetry1++;
 	}
@@ -41,13 +40,15 @@ void antisymmetry(int** a, int n)
 
 void reflexivity(int** a, int n)
 {
+	int chek = 0;
 	for (int i = 0; i < n; i++)
 	{
 		if (a[i][i] == 1)
-			reflexivity1++;
+			chek++;
 	}
-	if (reflexivity1 == n) {
+	if (chek == n) {
 		cout << "отношение рефлексивно" << endl;
+		reflexivity1++;
 	}
 }
 
@@ -180,6 +181,7 @@ int main()
 			cin >> a[i][j];
 		}
 	}
+	
 	symmetry(a, n);
 	reflexivity(a, n);
 	transitivity(a, n);

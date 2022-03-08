@@ -27,12 +27,12 @@ void antisymmetry(int** a, int n)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			if (a[i][j] == -a[j][i])
+			if (a[i][j] == 1 && a[j][i] == 1 && i != j )
 					not_antisymmetry1++;
 
 		}
 	}
-	if (not_antisymmetry1 > 0) {
+	if (not_antisymmetry1 == 0) {
 		cout << "отношение антисимметрично" << endl;
 		antisymmetry1++;
 	}
